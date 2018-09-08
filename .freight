@@ -1,0 +1,11 @@
+MainContainer:
+    image: ubuntu
+    ports:
+        - [ 22, 9185 ]
+    volumes:
+        - [ /app,.]
+RedisContainer:
+    image: redis
+    preScripts:
+        - ./tests/import-keys.sh
+

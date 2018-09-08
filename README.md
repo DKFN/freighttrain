@@ -13,3 +13,20 @@ Its goal will be launch a full dev environnement with all its dependencies docke
 (databases, dependant services, etc ...) providing developpers with decent mocking for developpement.
 
 It is still heavily WIP and is mainly done for my own use but feel free to use it or contribute to it.
+
+# Build
+Run in dev with example .freight file :
+
+`sbt run`
+
+Build binary for portable use
+
+```sbt dist``` (Java compilation)
+
+Debian binary (still needs java installed but its in .deb)
+
+```sbt debian:packageBin```
+
+All are exported in ./target directory
+
+

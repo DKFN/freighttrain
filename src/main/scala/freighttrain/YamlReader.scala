@@ -3,10 +3,8 @@ package freighttrain
 import java.io.{FileNotFoundException, InputStreamReader}
 
 import freighttrain.libs.{Panic, StdLogger}
-import io.circe.{Json, ParsingFailure}
 import io.circe.yaml.parser
 import org.yaml.snakeyaml.scanner.ScannerException
-import play.api.libs.json.Json
 import cats.syntax.either._
 
 import scala.io.Source

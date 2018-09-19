@@ -1,11 +1,14 @@
 MainContainer:
-    image: ubuntu
+    image: nginx
     ports:
-        - [ 22, 9185 ]
-    volumes:
-        - [ /app,.]
+        - [ 80, 80 ]
 RedisContainer:
     image: redis
+    preScripts:
+        - ./tests/import-keys.sh
+
+Cassandra:
+    image: cassandra
     preScripts:
         - ./tests/import-keys.sh
 

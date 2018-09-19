@@ -1,6 +1,10 @@
 package freighttrain
 
-import freighttrain.libs.StdLogger
+import freighttrain.docker.{CommandGenerator, Maestro}
+import freighttrain.libs.{Panic, StdLogger}
+import play.api.libs.json.{JsArray, JsObject, JsValue}
+
+import sys.process._
 
 object Main {
   def greet =
@@ -16,10 +20,15 @@ object Main {
       """.stripMargin
 
   def main(args: Array[String]) {
-    // val conf = new freighttrain.Conf(args)  // Note: This line also works for "object freighttrain.Main extends App"
-    // println("apples are: " + conf.apples())
+    val conf = new freighttrain.cli.Conf(args)  // Note: This line also works for "object freighttrain.Main extends App"
     StdLogger.info("Welcome in FreighTrain !")
     StdLogger.info(greet)
-    YamlReader.readConfig()
+    val configs = YamlReader.readConfig()
+
+    //if (conf.ship.isDefined) {
+      Maestro.kickFromConfig(configs)
+    // }
+
+    StdLogger.info("All cargo delivered`")
   }
 }

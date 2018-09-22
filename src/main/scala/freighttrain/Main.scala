@@ -21,12 +21,13 @@ object Main {
 
   def main(args: Array[String]) {
     val conf = new freighttrain.cli.Conf(args)  // Note: This line also works for "object freighttrain.Main extends App"
+    conf.verify()
     StdLogger.info("Welcome in FreighTrain !")
     StdLogger.info(greet)
     val configs = YamlReader.readConfig()
 
     //if (conf.ship.isDefined) {
-      Maestro.kickFromConfig(configs)
+      Maestro.kickFromConfig(conf, configs)
     // }
 
     StdLogger.info("All cargo delivered`")

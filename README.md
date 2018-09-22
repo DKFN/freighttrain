@@ -14,6 +14,25 @@ Its goal will be launch a full dev environnement with all its dependencies docke
 
 It is still heavily WIP and is mainly done for my own use but feel free to use it or contribute to it.
 
+#My first .freight file
+
+# How to run ?
+
+You have two ways to run the deamon, both needs Docker at least and one needs Java + Docker
+
+### I have a debian based distro with java installed
+
+Download the latest .deb build : http://cdn.deadlykungfu.ninja/freighttrain.deb
+
+There you can run `dpkg -i freightrain.deb`
+
+You can then go to a directory with a .freight file and simply run `freighttrain `
+
+### I don't have debian based distro or java
+
+If you have docker you can run the freighttrain image in 
+
+
 # Build
 Run in dev with example .freight file :
 

@@ -3,6 +3,7 @@ package freighttrain.docker
 import java.time.ZonedDateTime
 
 import cats.kernel.instances.StringMonoid
+import freighttrain.cli.Conf
 import freighttrain.libs.{Panic, StdLogger}
 import org.joda.time.Minutes
 import play.api.libs.json.{JsObject, Json}
@@ -21,11 +22,18 @@ case class ContainerState (
                           )
 
 object Maestro {
+
+  val MAIN_CONTAINER_KEY = "MainContainer";
+
   var poppedInstances = 0;
   var hive: Map[String, ContainerState] = Map()
+  var sessionConf: Conf = null
 
-  def kickFromConfig(mainJson: JsObject) = {
-    val mainContainerChunk = (mainJson \\ "MainContainer").headOption
+  def kickFromConfig(conf: Conf, mainJson: JsObject) = {
+
+    sessionConf = conf;
+
+    val mainContainerChunk = (mainJson \\ MAIN_CONTAINER_KEY).headOption
       .getOrElse({
         CommandGenerator.missingArgument("a"); Json.obj()
       })
@@ -35,18 +43,19 @@ object Maestro {
 
 
     val subContainers = mainJson.keys
-      .filterNot(_.==("MainContainer"))
+      .filterNot(_.==(MAIN_CONTAINER_KEY))
       .map { x => val
         c = (mainJson \ x).as[JsObject]
         registerContainer(x, CommandGenerator.getContainerRunCommand(c))
       }
 
-    registerContainer("MainContainer", mainRunnerCommand)
+    registerContainer(MAIN_CONTAINER_KEY, mainRunnerCommand)
 
     rollingClose()
     createNetwork()
 
     Thread.sleep(4000)
+
     val res = mainJson.keys.map { x => killContainer(x); runContainer(x);}
 
     // TODO : Check results and emt exceptions if necessary
@@ -54,26 +63,13 @@ object Maestro {
     Await.result(Future.sequence(res), Duration(10, "minutes"))
 
     StdLogger.info("Your cargo is shipping ...")
-    Thread.sleep(3000)
+
+      Thread.sleep(3000)
 
     "docker exec -it MainContainer sh"!
 
-      hive.keys.foreach { x =>
-        Thread.sleep(2000)
-        s"docker ps"!
-
-        StdLogger.info(s"Latests logs for : $x")
-        s"docker logs --tail 10 $x"!
-      }
-
-
-      hive.keys.foreach { x =>
-        Thread.sleep(2000)
-        s"docker ps"!
-
-        StdLogger.info(s"Latests logs for : $x")
-        s"docker logs --tail 10 $x"!
-      }
+    inspectLoop()
+    inspectLoop()
 
     StdLogger.info("SUCCESS !! Grabbing usefull informations from Main container ....");
 
@@ -82,6 +78,16 @@ object Maestro {
 
     StdLogger.info("Train arrived at IP:PORT @" + ZonedDateTime.now().toLocalDateTime)
 
+  }
+
+  def inspectLoop() = {
+    hive.keys.foreach { x =>
+      Thread.sleep(2000)
+      s"docker ps"!
+
+      StdLogger.info(s"Latests logs for : $x")
+      s"docker logs --tail 10 $x"!
+    }
   }
 
   def rollingClose(): Unit = {

@@ -20,7 +20,7 @@ It is still heavily WIP and is mainly done for my own use but feel free to use i
 
 You have two ways to run the deamon, both needs Docker at least and one needs Java + Docker
 
-### I have a debian based distro with java installed
+- ### I have a debian based distro with java installed
 
 Download the latest .deb build : http://cdn.deadlykungfu.ninja/freighttrain.deb
 
@@ -28,13 +28,15 @@ There you can run `dpkg -i freightrain.deb`
 
 You can then go to a directory with a .freight file and simply run `freighttrain `
 
-### I don't have debian based distro or java
+- ### I don't have debian based distro or java
 
 If you have docker you can run the freighttrain image in docker !
 
 Just pull the latest version from docker hub (only dev branch available at the moment)
 
-```docker pull dkfn/freighttrain:dev```
+```zsh
+docker pull dkfn/freighttrain:dev
+```
 
 Go to your project directory containing the .freight file.
 
@@ -47,7 +49,7 @@ You then have to run this command to attach your project directory and the host 
 Here is an example of a starter dev environnement using a Nginx web server, a redis and a cassandra
 
 Create and empty folder and a .freight text file containing this :
-
+```yaml
 MainContainer:
     image: nginx
     ports:
@@ -61,7 +63,7 @@ Cassandra:
     image: cassandra
     preScripts:
         - ./tests/import-keys.sh
-
+```
 Launching freighttrain via docker or the binary
 
 After your containers are all launched and accessible via the host machine just like you ran the freighttrain binary or spawned them by hand

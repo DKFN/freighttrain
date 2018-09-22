@@ -30,8 +30,31 @@ You can then go to a directory with a .freight file and simply run `freighttrain
 
 ### I don't have debian based distro or java
 
-If you have docker you can run the freighttrain image in 
+If you have docker you can run the freighttrain image in docker !
 
+Just pull the latest version from docker hub (only dev branch available at the moment)
+
+docker pull dkfn/freighttrain:dev
+
+Go to your project directory containing the .freight file.
+
+You then have to run this command to attach your project directory and the host docker socket to the freighttrain container.
+
+= ran out of battery sorry=
+
+After your containers are all launched and accessible via the host machine just like you ran the freighttrain binary
+
+
+
+# Actual todos
+listed by priority order
+
+- Tests
+- Provide envs for all containers
+- Daemon option for freighttrain container
+- Make a better demo app
+- Provide utility commands
+- Allow script name parameter for multiple configurations
 
 # Build
 Run in dev with example .freight file :

@@ -34,16 +34,37 @@ If you have docker you can run the freighttrain image in docker !
 
 Just pull the latest version from docker hub (only dev branch available at the moment)
 
-docker pull dkfn/freighttrain:dev
+```docker pull dkfn/freighttrain:dev```
 
 Go to your project directory containing the .freight file.
 
 You then have to run this command to attach your project directory and the host docker socket to the freighttrain container.
 
-= ran out of battery sorry=
+```= ran out of battery sorry=```
 
-After your containers are all launched and accessible via the host machine just like you ran the freighttrain binary
+# My first dev configuration
 
+Here is an example of a starter dev environnement using a Nginx web server, a redis and a cassandra
+
+Create and empty folder and a .freight text file containing this :
+
+MainContainer:
+    image: nginx
+    ports:
+        - [ 80, 80 ]
+RedisContainer:
+    image: redis
+    preScripts:
+        - ./tests/import-keys.sh
+
+Cassandra:
+    image: cassandra
+    preScripts:
+        - ./tests/import-keys.sh
+
+Launching freighttrain via docker or the binary
+
+After your containers are all launched and accessible via the host machine just like you ran the freighttrain binary or spawned them by hand
 
 
 # Actual todos
@@ -51,6 +72,8 @@ listed by priority order
 
 - Tests
 - Provide envs for all containers
+- Multiple networks
+- Remap ports if used (disablable)
 - Daemon option for freighttrain container
 - Make a better demo app
 - Provide utility commands
@@ -59,7 +82,7 @@ listed by priority order
 # Build
 Run in dev with example .freight file :
 
-`sbt run`
+```sbt run```
 
 Build binary for portable use
 

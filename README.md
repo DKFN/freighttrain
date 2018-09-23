@@ -6,7 +6,7 @@
  ){======_|"""""_| """ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""| 
  ./o--000"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-' 
 ```
-![Build](http://ns309716.ip-188-165-194.eu/app/rest/builds/buildType:%28id:Freighttrain_Build%29/statusIcon.png)
+![Build](http://ops-factory.tetel.in/app/rest/builds/buildType:%28id:Freighttrain_Build%29/statusIcon.png)
 
 Freight Train aims to a simple docker linking tool configured  with YAML
 
@@ -43,7 +43,11 @@ Go to your project directory containing the .freight file.
 
 You then have to run this command to attach your project directory and the host docker socket to the freighttrain container.
 
-```= ran out of battery sorry=```
+```
+docker run -v ${PWD}:/data -v /var/run/docker.sock:/var/run/docker.sock dkfn/freighttrain:dev
+```
+
+I strongly suggest you alias this command.
 
 # My first dev configuration
 

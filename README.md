@@ -6,6 +6,7 @@
  ){======_|"""""_| """ _|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""_|"""""| 
  ./o--000"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-' 
 ```
+![Build](http://ns309716.ip-188-165-194.eu/app/rest/builds/buildType:%28id:Freighttrain_Build%29/statusIcon.png)
 
 Freight Train aims to a simple docker linking tool configured  with YAML
 
